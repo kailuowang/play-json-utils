@@ -21,7 +21,7 @@ class NewtypeSuite extends SuiteBase {
   }
 
   test("full auto in case class") {
-    import auto._
+    import autoCached._
     assertFormat(Product(Name("a"), Price(12)), Json.obj("name" -> "a", "price" -> 12))
   }
 }

@@ -18,7 +18,9 @@ package object json {
 
   object autoCached  {
     implicit def autoOFormatsDerive[A](
-      implicit refute: Refute[OFormat[A]],
+      implicit
+        refuteR: Refute[Writes[A]],
+        refuteW: Refute[Reads[A]],
       readsCache: Cached[MkReads[A]],
       writesCache: Cached[MkWrites[A]]
     ): OFormat[A] = OFormat(readsCache.value, writesCache.value)

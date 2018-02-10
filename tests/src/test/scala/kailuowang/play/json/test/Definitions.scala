@@ -4,6 +4,7 @@ package test
 import io.estatico.newtype.{NewSubType, NewType}
 
 import scala.annotation.tailrec
+import scala.reflect.internal.util.Statistics.Quantity
 
 object Definitions {
   sealed trait IList[A]
@@ -31,14 +32,22 @@ object Definitions {
   case class Child(a: String, c: Int) extends ParentA
   case class ParentB(a: Boolean, b: Int) extends GrandParent
 
+  case class Foo(b: Bar)
+  case class Bar(b2: List[Bar2])
+  case class Bar2(b3: Bar3)
+  case class Bar3(s: String)
+
   type Name = Name.Type
   object Name extends NewSubType.Default[String]
 
   type Price = Price.Type
   object Price extends NewType.Default[Double]
 
+  type Quantity = Quantity.Type
+  object Quantity extends NewSubType.Default[Int]
 
   case class Product(name: Name, price: Price)
   case class Catalog(name: Name, products: List[Product])
+  case class Inventory(product: Product, quantity: Quantity)
 
 }
